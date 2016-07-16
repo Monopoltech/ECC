@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1032667300241",
+    "firebase_url": "https://custom-auth.firebaseio.com",
+    "project_id": "custom-auth",
+    "storage_bucket": "custom-auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032667300241:android:f213ff2aa8ee6db9",
+        "android_client_info": {
+          "package_name": "loginproject.monopol.com.firebasecustomauth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1032667300241-vtc1u95pq6hpr9ip41qop41hai15954d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQBXMKYSJDYhH8ln8tmSDF7uGFYQWtrkk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
