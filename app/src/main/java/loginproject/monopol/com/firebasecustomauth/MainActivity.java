@@ -1,9 +1,11 @@
 package loginproject.monopol.com.firebasecustomauth;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -64,13 +66,17 @@ public class MainActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAccount(username.getText().toString(),password.getText().toString());
+                String user = username.getText().toString();
+                String pass = password.getText().toString();
+
+                Intent intent = new Intent(MainActivity.this,GirisActivity.class);
+                startActivity(intent);
             }
         });
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                signIn(username.getText().toString(),password.getText().toString());
             }
         });
         signOut.setOnClickListener(new View.OnClickListener() {
@@ -131,23 +137,73 @@ public class MainActivity extends AppCompatActivity {
         client.disconnect();
     }
 
-    public void createAccount(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
 
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+    public void signIn(String email, String password)
+    {
+        Log.d(TAG, "signIn:" + email);
+        if(!validateForm())
+        {
+            return;
+        }
+
+        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                if(!task.isSuccessful())
+                {
+                    Log.w(TAG, "signInWithEmail", task.getException());
+                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this,"Giris kabul edildi.",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+                    startActivity(intent);
+                    //goHomeActivity(true);
+                }
+            }
+        });
     }
+
+    public void goHomeActivity(boolean signIn)
+    {
+        if(signIn)
+        {
+
+        }
+    }
+
+
+
+    public boolean validateForm()
+    {
+        boolean valid = true;
+        String email = username.getText().toString();
+        if(TextUtils.isEmpty(email))
+        {
+            username.setError("Required.");
+            valid = false;
+        }
+        else
+        {
+            username.setError(null);
+        }
+
+        String pass = password.getText().toString();
+        if(TextUtils.isEmpty(pass))
+        {
+            password.setError("Required.");
+            valid = false;
+        }
+        else
+        {
+            password.setError(null);
+        }
+        return valid;
+    }
+
+
 
 
 }
