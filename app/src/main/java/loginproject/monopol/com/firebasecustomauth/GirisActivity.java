@@ -18,13 +18,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class GirisActivity extends AppCompatActivity {
 
-    Button checkButton;
-    EditText userName, password;
+    public Button checkButton;
+    public EditText userName, password;
     private FirebaseAuth.AuthStateListener mAuthListener;
     public FirebaseAuth mAuth;
+    public String degisken;
+    public String userId;
     public static final String TAG = "EmailPassword";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +43,8 @@ public class GirisActivity extends AppCompatActivity {
 
         Intent intent = getIntent();   // Not neccesary
 
-
+        //Authentication
         mAuth = FirebaseAuth.getInstance();
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -54,7 +59,6 @@ public class GirisActivity extends AppCompatActivity {
                 }
             }
         };
-
 
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +81,11 @@ public class GirisActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(GirisActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                        }else
+                        {
+                            Log.d("uid",task.getResult().getUser().getUid());
+                            User user = new User();
+                            user.writeNewUser(task.getResult().getUser().getUid(), task.getResult().getUser().getEmail());
                         }
                     }
                 });

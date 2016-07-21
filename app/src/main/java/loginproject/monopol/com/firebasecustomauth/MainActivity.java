@@ -21,8 +21,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity {
     EditText username, password;
 
     Button create, signIn, signOut;
@@ -158,9 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                 {
                     Toast.makeText(MainActivity.this,"Giris kabul edildi.",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this,HomeActivity.class);
-                    startActivity(intent);
-                    //goHomeActivity(true);
+                    goHomeActivity(true);
                 }
             }
         });
@@ -170,11 +168,10 @@ public class MainActivity extends AppCompatActivity {
     {
         if(signIn)
         {
-
+            Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+            startActivity(intent);
         }
     }
-
-
 
     public boolean validateForm()
     {
@@ -189,7 +186,6 @@ public class MainActivity extends AppCompatActivity {
         {
             username.setError(null);
         }
-
         String pass = password.getText().toString();
         if(TextUtils.isEmpty(pass))
         {
@@ -202,8 +198,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return valid;
     }
-
-
-
 
 }
