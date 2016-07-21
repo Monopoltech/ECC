@@ -20,7 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import loginproject.monopol.com.firebasecustomauth.arca.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
     EditText username, password;
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Button create, signIn, signOut;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private SessionManager session;
 
     public FirebaseAuth mAuth;
 
@@ -50,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
         signIn = (Button) findViewById(R.id.button2);
         signOut = (Button) findViewById(R.id.button3);
 
+        session = new SessionManager(getApplicationContext());
+        if (session.isLoggedIn()) {
+            // User is already logged in. Take him to main activity
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
         mAuth = FirebaseAuth.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -67,9 +75,6 @@ public class MainActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user = username.getText().toString();
-                String pass = password.getText().toString();
-
                 Intent intent = new Intent(MainActivity.this,GirisActivity.class);
                 startActivity(intent);
             }
@@ -159,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                 {
                     Toast.makeText(MainActivity.this,"Giris kabul edildi.",Toast.LENGTH_SHORT).show();
+                    session.setLogin(true,task.getResult().getUser().getUid());
                     goHomeActivity(true);
                 }
             }
