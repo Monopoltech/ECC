@@ -31,6 +31,7 @@ public class GirisActivity extends AppCompatActivity {
     public FirebaseAuth mAuth;
     public String degisken;
     public String userId;
+    public String id;
     public static final String TAG = "EmailPassword";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
