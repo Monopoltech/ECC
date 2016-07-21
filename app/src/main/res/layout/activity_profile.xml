@@ -15,7 +15,7 @@
         android:id="@+id/imageView"
         android:layout_marginTop="34dp"
         android:clickable="true"
-        android:background="@drawable/profile1"
+        android:background="@drawable/profile"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         />

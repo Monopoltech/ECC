@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(HomeActivity.this,Profile.class);
-                startActivity(intent));
+                startActivity(intent);
             }
         });
 
@@ -71,12 +71,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        hashmapListView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -92,7 +87,18 @@ public class HomeActivity extends AppCompatActivity {
 
         //user = new User();
         mDatabase =  FirebaseDatabase.getInstance().getReference();
-        Log.d("veri :",mDatabase.child("Users").child(user.userId).limitToFirst(100).toString());
+       // Log.d("veri :",mDatabase.child("Users").child(user.userId).limitToFirst(100).toString());
+        mDatabase.child("Users").child(user.userId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.d("Veri :", dataSnapshot.getValue()+"");
+                }
+
+                @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("hata :", databaseError.getMessage());
+            }
+        });
         //String deger = String.format("%s",user.mDatabase.child("Users").child(user.userId).limitToFirst(100));
         //getItems(deger);
     }

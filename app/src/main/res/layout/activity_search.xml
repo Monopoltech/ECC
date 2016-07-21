@@ -36,7 +36,7 @@
         android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton"
-        android:background="@drawable/arama"
+        android:background="@drawable/search"
         android:layout_marginLeft="30dp"
         android:layout_marginStart="30dp"
         android:layout_alignBottom="@+id/textView"
@@ -54,6 +54,6 @@
         android:layout_alignParentEnd="true" />
 
     <CheckBox
-        android:layout_width=""
-        android:layout_height="" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
