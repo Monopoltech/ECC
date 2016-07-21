@@ -30,7 +30,7 @@ public class HomeActivity extends AppCompatActivity {
 
     User user;
 
-    DatabaseReference myRef = database.getReference("message");
+    DatabaseReference myRef = database.getReference("Users");
     private DatabaseReference mDatabase;
 
     ListView liste;
@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(HomeActivity.this,Profile.class);
-                startActivity(intent));
+                startActivity(intent);
             }
         });
 
@@ -71,13 +71,13 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        hashmapListView.setOnClickListener(new View.OnClickListener() {
+        /*hashmapListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
-        });
-        myRef.addValueEventListener(new ValueEventListener() {
+        });*/
+        myRef.child("444").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
@@ -92,18 +92,11 @@ public class HomeActivity extends AppCompatActivity {
 
         //user = new User();
         mDatabase =  FirebaseDatabase.getInstance().getReference();
-        Log.d("veri :",mDatabase.child("Users").child(user.userId).limitToFirst(100).toString());
+        //Log.d("veri :",mDatabase.child("Users").child(user.userId).limitToFirst(100).toString());
         //String deger = String.format("%s",user.mDatabase.child("Users").child(user.userId).limitToFirst(100));
         //getItems(deger);
     }
 
-    public void getItems(String item)
-    {
-        ArrayList<String> items = new ArrayList<String>();
-            items.add(item);
-       ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1, items);
-        liste.setAdapter(adapter);
-    }
 
 
 }

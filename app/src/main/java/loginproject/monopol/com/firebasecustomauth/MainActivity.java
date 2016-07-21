@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //listView=(ListView) findViewById(R.id.)
         username = (EditText) findViewById(R.id.editText);
         password = (EditText) findViewById(R.id.editText2);
         create = (Button) findViewById(R.id.button);
@@ -173,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
     public boolean validateForm()
     {
         boolean valid = true;
@@ -186,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
         {
             username.setError(null);
         }
+
         String pass = password.getText().toString();
         if(TextUtils.isEmpty(pass))
         {
@@ -198,5 +202,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return valid;
     }
+
+
+
 
 }

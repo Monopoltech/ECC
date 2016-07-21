@@ -26,14 +26,15 @@ public class AddActivity extends AppCompatActivity {
         button2=(Button) findViewById(R.id.button4);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(AddActivity.this,GirisActivity.class);
+                Intent intent=new Intent(AddActivity.this,HomeActivity.class);
                 startActivity(intent);
             }
 

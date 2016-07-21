@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 public class Profile extends AppCompatActivity {
 
+
+    Update newUpdate= new Update();
+
+
     ImageView iv;
     TextView ka1,mail,pw,pw2;
     Button button1,button2;

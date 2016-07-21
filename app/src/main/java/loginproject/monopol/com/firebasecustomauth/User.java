@@ -46,7 +46,6 @@ public class User {
         Log.d("writenewuser2: ",result.toString());
         mDatabase.child("Users").child(userId).setValue(result);
         home = new HomeActivity();
-        home.getItems(userId);
     }
 
 }
