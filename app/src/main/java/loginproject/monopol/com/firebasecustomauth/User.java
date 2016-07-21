@@ -41,6 +41,7 @@ public class User {
     {
         giris = new GirisActivity();
         HashMap<String, Object> result = new HashMap<>();
+        result.put("userId", userId);
         result.put("username",username);
         Log.d("writenewuser: ",userId);
         Log.d("writenewuser2: ",result.toString());

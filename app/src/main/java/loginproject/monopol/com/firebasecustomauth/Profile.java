@@ -8,20 +8,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Profile extends AppCompatActivity {
-
-
-    Update newUpdate= new Update();
-
-
     ImageView iv;
-    TextView ka1,mail,pw,pw2;
-    Button button1,button2;
-    String username,email,password;
+    TextView ka1, mail, pw, pw2;
+    Button button1, button2;
+    String username, email, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_profile);
         ka1 = (TextView) findViewById(R.id.textView);
         mail = (TextView) findViewById(R.id.textView2);
         pw = (TextView) findViewById(R.id.textView3);
@@ -46,12 +41,9 @@ public class Profile extends AppCompatActivity {
 
     }
 
-    public void items()
-    {
+    public void items() {
         username = ka1.getText().toString();
         password = pw.getText().toString();
-        email    = mail.getText().toString();
+        email = mail.getText().toString();
     }
-
-
 }
