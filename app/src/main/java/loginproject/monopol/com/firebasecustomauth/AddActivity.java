@@ -12,11 +12,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
-import java.util.Random;
 
 import loginproject.monopol.com.firebasecustomauth.arca.SessionManager;
+
 public class AddActivity extends AppCompatActivity {
-    private Random random;
     private SessionManager session;
     private DatabaseReference mDatabase;
 
@@ -43,12 +42,21 @@ public class AddActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String key = mDatabase.child("Hashtag").push().getKey();
+
+                HashMap<String, Object> result__ = new HashMap<>();
+                result__.put(session.isUid(),true);
+
                 HashMap<String, Object> result = new HashMap<>();
-                random = new Random();
-                int idNumber = random.nextInt(123456);
                 result.put("title", hashTag.getText().toString());
-                mDatabase.child("Users").child(session.isUid()).child("Hashtag").child(session.isUid()+idNumber).setValue(result);
-                mDatabase.child("Hashtag").child(session.isUid()+idNumber).setValue(result);
+                result.put("uid",result__);
+
+                HashMap<String, Object> result_ = new HashMap<>();
+                result_.put("title", hashTag.getText().toString());
+                //result_.put(key, true);
+
+                mDatabase.child("Users").child(session.isUid()).child("Hashtag").child(key).setValue(result_);
+                mDatabase.child("Hashtag").child(key).setValue(result);
                 getHashTag = hashTag.getText().toString();
                 Intent intent = new Intent(AddActivity.this, HomeActivity.class);
                 startActivity(intent);
