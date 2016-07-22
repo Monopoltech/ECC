@@ -3,10 +3,7 @@ package loginproject.monopol.com.firebasecustomauth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,20 +14,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import loginproject.monopol.com.firebasecustomauth.arca.SessionManager;
 
-import java.util.HashMap;
 
 public class GirisActivity extends AppCompatActivity {
 
     public Button checkButton;
     public EditText userName, password;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     public FirebaseAuth mAuth;
-    public String degisken;
-    public String userId;
+    private SessionManager session;
     public String id;
     public static final String TAG = "EmailPassword";
     @Override
@@ -41,25 +33,8 @@ public class GirisActivity extends AppCompatActivity {
         checkButton = (Button) findViewById(R.id.signInButton);
         userName = (EditText) findViewById(R.id.userNameText);
         password = (EditText) findViewById(R.id.passwordText);
-
-        Intent intent = getIntent();   // Not neccesary
-
-        //Authentication
+        session = new SessionManager(getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null)
-                {
-                    Log.d(TAG, "onAuthState:signed_in" + user.getUid());
-                }
-                else
-                {
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-            }
-        };
 
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +62,9 @@ public class GirisActivity extends AppCompatActivity {
                             Log.d("uid",task.getResult().getUser().getUid());
                             User user = new User();
                             user.writeNewUser(task.getResult().getUser().getUid(), task.getResult().getUser().getEmail());
+                            session.setLogin(true,task.getResult().getUser().getUid());
+                            Intent intent = new Intent(GirisActivity.this,HomeActivity.class);
+                            startActivity(intent);
                         }
                     }
                 });

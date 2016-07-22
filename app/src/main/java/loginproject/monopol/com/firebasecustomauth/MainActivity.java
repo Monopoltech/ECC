@@ -25,7 +25,7 @@ import loginproject.monopol.com.firebasecustomauth.arca.SessionManager;
 public class MainActivity extends AppCompatActivity {
     EditText username, password;
 
-    Button create, signIn, signOut;
+    Button create, signIn;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
     private SessionManager session;
@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.editText2);
         create = (Button) findViewById(R.id.button);
         signIn = (Button) findViewById(R.id.button2);
-        signOut = (Button) findViewById(R.id.button3);
 
         session = new SessionManager(getApplicationContext());
         if (session.isLoggedIn()) {
@@ -85,12 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 signIn(username.getText().toString(),password.getText().toString());
             }
         });
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

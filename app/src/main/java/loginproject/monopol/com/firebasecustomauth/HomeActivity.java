@@ -17,7 +17,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import loginproject.monopol.com.firebasecustomauth.arca.SessionManager;
@@ -27,24 +26,23 @@ public class HomeActivity extends AppCompatActivity {
 
     ImageButton profileBut, addBut, searchBut;
 
-    public String getItems;
-
-    AddActivity addActivity = new AddActivity();
-
     public ArrayList<String> arrayList = new ArrayList<String>();
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-    DatabaseReference myRef = database.getReference("Users");
     private DatabaseReference mDatabase;
 
     ListView liste;
-    private final String TAG = "VALUE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        session = new SessionManager(getApplicationContext());
+        if (!session.isLoggedIn()) {
+            // User is already logged in. Take him to main activity
+            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         profileBut = (ImageButton)findViewById(R.id.profileButton);
         addBut = (ImageButton)findViewById(R.id.addButton);
@@ -82,7 +80,6 @@ public class HomeActivity extends AppCompatActivity {
 
         //user = new User();
         mDatabase =  FirebaseDatabase.getInstance().getReference();
-        session = new SessionManager(getApplicationContext());
         if (session.isUid() ==null){
             Log.d("Arc:","Uid yok");
             finish();
@@ -115,7 +112,9 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                Map<String, Object> newPost = (Map<String, Object>)dataSnapshot.getValue();
+                Log.d("Author: ", newPost.get("title").toString());
+                arrayList.add(newPost.get("title").toString());
             }
 
             @Override
@@ -133,9 +132,6 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-        //Log.d("veri :",mDatabase.child("Users").child(user.userId).limitToFirst(100).toString());
-        //String deger = String.format("%s",user.mDatabase.child("Users").child(user.userId).limitToFirst(100));
-        //getItems(deger);
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,android.R.id.text1,arrayList);
         liste.setAdapter(arrayAdapter);
